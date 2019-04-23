@@ -1,9 +1,11 @@
 Package: assortedRFunctions
-Title: What the Package Does (one line, title case)
+Title:Just a collection of random function that I wrote.
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Joern Alexander", "Quent", email = "alex.quent@mrc-cbu.cam.ac.uk", role = c("aut", "cre"))
+Description: Just a collection of random function that I wrote.
 Depends: R (>= 3.5.1)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports:
+    plyr
