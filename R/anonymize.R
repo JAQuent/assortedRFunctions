@@ -37,7 +37,7 @@ anonymize <- function(inVector, fileName = 'anonKey', strLength = 6){
                           stringsAsFactors = FALSE)
 
   # Create text strings and combine
-  commentStr <- "#Hello"
+  commentStr <- "#This is a key file for de-anonymising subject ID. DO NOT SHARE PUBLICALLY."
   headerStr  <- paste(names(deAnonKey), collapse = '\t')
   keyStr     <- c()
   for(i in 1:numSub){
