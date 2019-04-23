@@ -1,4 +1,4 @@
-anonymize <- function(inVector, fileName = 'anonKey', strLength = 6){
+anonymise <- function(inVector, fileName = 'anonKey', strLength = 6){
   # Input converted to character
   inVector  <- as.character(inVector)
 
