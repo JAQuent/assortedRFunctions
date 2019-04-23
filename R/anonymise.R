@@ -6,7 +6,7 @@ anonymise <- function(inVector, fileName = 'anonKey', strLength = 6){
   subs      <- unique(inVector)
   numSub    <- length(subs)
 
-  # Create anonymized strings for subects
+  # Create anonymised strings for subects
   anonStr   <- apply(as.array(rep(strLength, numSub)), 1, createAnonStr)
 
   # Check whether all strings are unique, if not first try again,
@@ -20,7 +20,7 @@ anonymise <- function(inVector, fileName = 'anonKey', strLength = 6){
     }
   }
 
-  # Assign anonymized strings to vector and convert to factor
+  # Assign anonymised strings to vector and convert to factor
   # Solution for this problem found here
   df1       <- data.frame(a = inVector)
   df2       <- data.frame(a = subs, value = anonStr, stringsAsFactors = FALSE)
