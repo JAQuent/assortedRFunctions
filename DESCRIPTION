@@ -1,11 +1,12 @@
 Package: assortedRFunctions
 Title:Just a collection of random function that I wrote.
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Joern Alexander", "Quent", email = "alex.quent@mrc-cbu.cam.ac.uk", role = c("aut", "cre"))
-Description: Just a collection of random function that I wrote.
+Description: Just a collection of random functions that I wrote.
 Depends: R (>= 3.5.1)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports:
-    plyr
+    plyr,
+    dplyr
