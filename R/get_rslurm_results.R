@@ -15,9 +15,8 @@ get_rslurm_results <- function(path, outputType = 'data.frame'){
       if(i == 1){
         output <- dplyr::bind_rows(readRDS(paste0(path, results_files[i])))
       } else {
-
+        output <- rbind(output, dplyr::bind_rows(readRDS(paste0(path, results_files[i]))))
       }
-      output <- rbind(output, dplyr::bind_rows(readRDS(paste0(path, results_files[i]))))
     }
   } else {
     # Load all result files and save in list
@@ -28,5 +27,6 @@ get_rslurm_results <- function(path, outputType = 'data.frame'){
   }
   cat(paste('Loaded', numFiles, 'result files from rslurm folder:\n'))
   cat(path)
+  cat('\n')
   return(output)
 }
