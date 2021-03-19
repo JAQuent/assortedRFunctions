@@ -9,12 +9,12 @@ clear_environment <- function(){
 
   if(tolower(response) == 'yes' | tolower(response) == 'y'){
     # Yes
-    cat('\r The enviroment will be cleared. \r')
+    cat('\r The environment will be cleared. \r')
 
     # Clear
     rm(list = ls(globalenv()), pos = globalenv())
   } else {
     # No in all other cases as safety feature
-    cat('\r The enviroment  not will be cleared. \r')
+    cat('\r The environment  not will be cleared. \r')
   }
 }
