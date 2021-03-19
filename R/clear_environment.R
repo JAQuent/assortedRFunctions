@@ -2,7 +2,7 @@ clear_environment <- function(){
   # This function asks whether you want the (global) environment to be cleared
 
   # Ask
-  cat('\rDo you want the enviorment to be cleared? (y/n)\r')
+  cat('\rDo you want the environment to be cleared? (y/n)\r')
 
   # Get response
   response <- readline(prompt="Response: ")
