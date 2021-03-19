@@ -1,5 +1,5 @@
 clear_environment <- function(){
-  # This function asks whether you want the environment to be cleared
+  # This function asks whether you want the (global) environment to be cleared
 
   # Ask
   cat('\rDo you want the enviorment to be cleared? (y/n)\r')
@@ -12,7 +12,7 @@ clear_environment <- function(){
     cat('\r The enviroment will be cleared. \r')
 
     # Clear
-    rm(list = ls())
+    rm(list = ls(globalenv()), pos = globalenv())
   } else {
     # No in all other cases as safety feature
     cat('\r The enviroment  not will be cleared. \r')
