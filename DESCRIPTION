@@ -10,4 +10,5 @@ LazyData: true
 Imports:
     plyr,
     dplyr,
-    polspline
+    polspline,
+    utils
