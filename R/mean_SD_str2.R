@@ -15,11 +15,11 @@ mean_SD_str2 <- function(x, type, digits, rounding_type){
 
   # Rounding
   if(rounding_type == 'signif'){
-    m <- signif(mean(x), digits)
-    s <- signif(sd(x), digits)
+    m <- signif(mean(x, na.rm = TRUE), digits)
+    s <- signif(sd(x, na.rm = TRUE), digits)
   } else if (rounding_type == 'round'){
-    m <- round(mean(x), digits)
-    s <- round(sd(x), digits)
+    m <- round(mean(x, na.rm = TRUE), digits)
+    s <- round(sd(x, na.rm = TRUE), digits)
   } else {
     stop('Wrong rounding type. Choose signif or round.')
   }
