@@ -30,7 +30,6 @@ anonymise <- function(inVector, fileName = 'anonKey', strLength = 6){
   # Removing order of factor
   outVector <- factor(outVector,levels(outVector)[sample(1:numSub)])
 
-
   # Save list and create key
   deAnonKey <- data.frame(origID = subs,
                           newId  = anonStr,
