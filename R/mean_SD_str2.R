@@ -1,4 +1,4 @@
-mean_SD_str2 <- function(x, type, digits, rounding_type){
+mean_SD_str2 <- function(x, type, digits, rounding_type, measure){
   # This function calculates the mean and a SD to create strings like this
   # Type 1 M = 0.49 (SD = 0.26)
   # Type 2 0.10 (.02)
@@ -11,6 +11,13 @@ mean_SD_str2 <- function(x, type, digits, rounding_type){
   # Default rounding
   if(missing(rounding_type)){
     rounding_type <- 'round'
+  }
+
+  # Default measure just empty
+  if(missing(measure)){
+    measure <- '' # First measure of string
+  } else {
+    measure <- paste0(" ", measure)
   }
 
   # Rounding
@@ -26,9 +33,9 @@ mean_SD_str2 <- function(x, type, digits, rounding_type){
 
   # Create string
   if(type == 1){
-    result_string <- paste0('M = ',round(m, digits), ' (SD = ', round(s, digits), ')')
+    result_string <- paste0('M = ',m, measure, ' (SD = ', s, measure, ')')
   } else if (type == 2){
-    result_string <- paste0(round(m, digits), ' (', round(s, digits), ')')
+    result_string <- paste0(m, measure, ' (', s, measure, ')')
   } else {
     stop('Wrong type')
   }
