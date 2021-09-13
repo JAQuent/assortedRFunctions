@@ -3,3 +3,7 @@
 # assortedRFunctions
 
 This is just a random collection of functions for R
+
+# Recognition
+
+Please recognise this work by citing it.
