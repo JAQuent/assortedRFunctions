@@ -5,6 +5,6 @@ extract_brms_prior <- function(brms_model_prior_string){
   tempStr <- str_split(brms_model_prior_string , ",")[[1]]
 
   # Get the numbers
-  params  <- str_extract(tempStr , "\\d+\\.*\\d*")
+  params  <- as.numeric(str_extract(tempStr , "\\d+\\.*\\d*"))
   return(params)
 }
