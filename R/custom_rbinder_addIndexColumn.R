@@ -1,4 +1,4 @@
-custom_rbinder_addSubject <- function(x){
+custom_rbinder_addIndexColumn <- function(x, columnName = "index"){
   # x = e.g. lapply(allFiles, read.csv)
   
   # How many entries does this list have?
@@ -9,8 +9,12 @@ custom_rbinder_addSubject <- function(x){
     # Get DF from list
     tempDF <- x[[i]]
     
-    # Add subject
-    tempDF$subject <- as.character(i)
+    # Create index DF and assign column name
+    index <- data.frame(rep(i, times = nrow(tempDF)))
+    names(index) <- columnName
+    
+    # Add index to custom column name
+    tempDF <- cbind(tempDF, index)
     
     # Put the updated DF back into the list
     x[[i]] <- tempDF
