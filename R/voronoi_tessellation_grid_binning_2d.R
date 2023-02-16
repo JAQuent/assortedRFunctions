@@ -1,5 +1,5 @@
-voronoi_tesselation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, shape = "hexagon"){
-  # This function bins spatial 2D data via voronoi tesselation, where x & y are coordinate values, xLim & yLim are the
+voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, shape = "hexagon"){
+  # This function bins spatial 2D data via Voronoi tessellation, where x & y are coordinate values, xLim & yLim are the
   # limit values for the tessellation seeds and numSeeds is the number of seeds. There are two possible
   # shapes 'square' & 'hexagon'. For hexagons, the rows are shifted a bit slightly extending the xLim values.
   # How this function works: First, tessellation seeds are created and then each point is binned by finding the closest
