@@ -1,6 +1,6 @@
 voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, shape = "hexagon"){
   # This function bins spatial 2D data via Voronoi tessellation, where x & y are coordinate values, xLim & yLim are the
-  # limit values for the tessellation seeds and numSeeds is the number of seeds. There are two possible
+  # limit values for the tessellation seeds and numSeeds is the number of seeds per axis. There are two possible
   # shapes 'square' & 'hexagon'. For hexagons, the rows are shifted a bit slightly extending the xLim values.
   # How this function works: First, tessellation seeds are created and then each point is binned by finding the closest
   # seed (estimated by Euclidean distance)
@@ -20,7 +20,6 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, sha
     xStepSize  <- xRange[1] - xRange[2] # Space between the points on the x-axis
     shiftValue <- xStepSize/4 # The value by which to shift the rows to get hexagon-shaped bins
   } else if(shape == "square"){
-    seeds      <- data.frame(x = xRange[1], y = yRange)
     shiftValue <- 0
   } else {
     stop("Unkown bin shape")
@@ -53,8 +52,12 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, sha
     # Calculate distances
     dists <- euclidDist(x[i], y[i], seeds$x, seeds$y)
 
-    # Save labels
-    binLabels[i] <- seeds$bin[dists == min(dists)]
+    # Check if there is more than one possibility, then select random
+    if(sum(dists == min(dists)) == 1){
+      binLabels[i] <- seeds$bin[dists == min(dists)]
+    } else {
+      binLabels[i] <- sample(seeds$bin[dists == min(dists)], 1)
+    }
   }
 
   # Return
