@@ -1,5 +1,5 @@
 Package: assortedRFunctions
-Title:Just a collection of random function that I wrote.
+Title:Just a collection of random functions that I wrote.
 Version: 0.0.1
 Authors@R: person("Joern Alexander", "Quent", email = "alex.quent@mrc-cbu.cam.ac.uk", role = c("aut", "cre"))
 Description: Just a collection of random functions that I wrote.

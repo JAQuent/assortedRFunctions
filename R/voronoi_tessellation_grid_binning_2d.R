@@ -73,7 +73,7 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, sha
     }
 
     # Stop cluster again
-    stopCluster(cl = my.cluster)
+    parrallel:stopCluster(cl = my.cluster)
 
   } else {
     ########## No parallelisation
