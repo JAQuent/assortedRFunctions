@@ -1,12 +1,30 @@
-voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, shape = "hexagon"){
+voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, shape = "hexagon", useParallelistion = FALSE){
   # This function bins spatial 2D data via Voronoi tessellation, where x & y are coordinate values, xLim & yLim are the
   # limit values for the tessellation seeds and numSeeds is the number of seeds per axis. There are two possible
   # shapes 'square' & 'hexagon'. For hexagons, the rows are shifted a bit slightly extending the xLim values.
   # How this function works: First, tessellation seeds are created and then each point is binned by finding the closest
-  # seed (estimated by Euclidean distance)
+  # seed (estimated by Euclidean distance). Set useParallelistion to TRUE to use doParallel and foreach to speed things up.
+  # In this case detectCores() - 2 cores are used.
   ### Checks of input
   if(numSeeds %% 2 != 0){
     stop("numSeeds is not an even number")
+  }
+
+  ### Check if useParallelistion & then prepare everything
+  if(useParallelistion){
+    # Check if packages are attached
+    if(!any(search() == "package:doParallel")){
+      require(doParallel)
+    }
+    if(!any(search() == "package:foreach")){
+      require(foreach)
+    }
+
+    # Create the cluster following https://www.blasbenito.com/post/02_parallelizing_loops_with_r/
+    my.cluster <- parallel::makeCluster(detectCores() - 2, type = "PSOCK")
+
+    #register it to be used by %dopar%
+    doParallel::registerDoParallel(cl = my.cluster)
   }
 
   ### Generate the tessellation seeds from the input
@@ -35,28 +53,43 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, sha
     seeds <- rbind(seeds, data.frame(x = xRange[i] + shiftIndex*shiftValue, y = yRange))
   }
 
-  # Step 5: Add bin information to seeds
+  # Step 6: Add bin information to seeds
   seeds$bin <- row.names(seeds)
 
   ### Find the closest seed and label it accordingly
-  # Step 1: Distance function
-  euclidDist <- function(x1, y1, x2, y2){
-    sqrt((x1-x2)^2 + (y1 - y2)^2)
-  }
+  # Loop through the points and find bins based on distance
+  if(useParallelistion){
+    ########## Parallelisation
+    binLabels <- foreach(i = 1:length(x), .combine = 'c') %dopar% {
+      # Calculate Eudlidean distances
+      dists <- sqrt((x[i]-seeds$x)^2 + (y[i] - seeds$y)^2)
 
-  # Step 2:  Prepare the labels
-  binLabels <- rep(NA, length(x))
+      # Check if there is more than one possibility, then select random
+      if(sum(dists == min(dists)) == 1){
+        return(seeds$bin[dists == min(dists)])
+      } else {
+        return(sample(seeds$bin[dists == min(dists)], 1))
+      }
+    }
 
-  # Step 3: Loop through the points and find bins based on distance
-  for(i in 1:length(x)){
-    # Calculate distances
-    dists <- euclidDist(x[i], y[i], seeds$x, seeds$y)
+    # Stop cluster again
+    stopCluster(cl = my.cluster)
 
-    # Check if there is more than one possibility, then select random
-    if(sum(dists == min(dists)) == 1){
-      binLabels[i] <- seeds$bin[dists == min(dists)]
-    } else {
-      binLabels[i] <- sample(seeds$bin[dists == min(dists)], 1)
+  } else {
+    ########## No parallelisation
+    # Prepare the labels
+    binLabels <- rep(NA, length(x))
+
+    for(i in 1:length(x)){
+      # Calculate Eudlidean distances
+      dists <- sqrt((x[i]-seeds$x)^2 + (y[i] - seeds$y)^2)
+
+      # Check if there is more than one possibility, then select random
+      if(sum(dists == min(dists)) == 1){
+        binLabels[i] <- seeds$bin[dists == min(dists)]
+      } else {
+        binLabels[i] <- sample(seeds$bin[dists == min(dists)], 1)
+      }
     }
   }
 
