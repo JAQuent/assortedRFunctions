@@ -61,7 +61,7 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, xLim, yLim, numSeeds, sha
   if(useParallelistion){
     ########## Parallelisation
     binLabels <- foreach(i = 1:length(x), .combine = 'c') %dopar% {
-      # Calculate Eudlidean distances
+      # Calculate Euclidean distances
       dists <- sqrt((x[i]-seeds$x)^2 + (y[i] - seeds$y)^2)
 
       # Check if there is more than one possibility, then select random
