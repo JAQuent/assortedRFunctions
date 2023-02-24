@@ -5,7 +5,7 @@ calc_cross_entropy <- function(states2analyse, predictedStates){
   }
 
   # Number of states that were present
-  presentStates <- as.numeric(unique(predictedStates))
+  presentStates <- unique(predictedStates)
   k             <- length(presentStates)
 
   # Initialise pj & qj

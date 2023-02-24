@@ -1,6 +1,6 @@
 calc_entropy <- function(states2analyse){
   # Number of states that were present
-  presentStates <- as.numeric(unique(states2analyse))
+  presentStates <- unique(states2analyse)
   k             <- length(presentStates)
 
   # Initialise pj
