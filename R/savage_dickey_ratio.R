@@ -1,6 +1,8 @@
 savage_dickey_ratio <- function(postDist, priorDensity, areaPrior = 0.5, alternative = 'two.sided'){
-  # Get polspline
-  require(polspline)
+  # Get polspline if not loaded already
+  if(!any(search() == "package:polspline")){
+    require(polspline)
+  }
 
   # Calculate BF according to alternative
   if(alternative  == 'greater'){
