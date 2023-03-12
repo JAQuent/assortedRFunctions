@@ -13,5 +13,5 @@ predicted_finish <- function(startIndex, i, n, startTime){
   predictedFinishTime <- now + predictedTimeLeft
 
   # Print results to the console
-  cat(paste0("\n Iteration: ", i,"/", n, " | The process has ", signif(predictedTimeLeft, 4), " hours left | Predicted finished: ", predictedFinishTime))
+  cat(paste0("\n Iteration: ", i,"/", n, " | The process has ", signif(predictedTimeLeft, 4), " hours left | Predicted finished: ", predictedFinishTime, '\n'))
 }
