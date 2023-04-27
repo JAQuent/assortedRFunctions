@@ -1,6 +1,6 @@
-voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, byValue, shape = "hexagon", useParallelisation = FALSE){
+voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, numSeeds, shape = "hexagon", useParallelisation = FALSE){
   # This function bins spatial 2D data via Voronoi tessellation, where x & y are coordinate values, limValues (same for x & y) are the
-  # limit values for the tessellation seeds and byValue step size that is used for the x-axis. The y-values are set slightly
+  # limit values for the tessellation seeds and numSeeds desrcibe the number of seeds used for the x-axis. The y-values are set slightly
   # smaller *(sqrt(3)/2) to make sure that the lattice is in fact made up of equilateral triangles. There are two possible
   # shapes 'square' & 'hexagon'. For hexagons, the rows are shifted a bit slightly extending the xLim values and y step size is adjusted.
   # How this function works: First, tessellation seeds are created and then each point is binned by finding the closest
@@ -9,6 +9,9 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, byValue, shape
   # Sort limit values
   xLim <- sort(limValues)
   yLim <- sort(limValues)
+
+  # Calculate byValue from numSeeds
+  byValue   <- ((xLim[2] - xLim[1])/(numSeeds - 1))
 
   ### Check if useParallelisation & then prepare everything
   if(useParallelisation){
