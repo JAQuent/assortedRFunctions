@@ -77,14 +77,21 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, numSeeds, shap
   if(useParallelisation){
     ########## Parallelisation
     binLabels <- foreach(i = 1:length(x), .combine = 'c') %dopar% {
+      # Subset seeds because we can already exclude points that are too far away
+      tempSeeds_bool <- seeds$x >= x - xStepSize*5 &
+                        seeds$x <= x + xStepSize*5 &
+                        seeds$y >= y - xStepSize*5 &
+                        seeds$y <= y + xStepSize*5
+      tempSeeds <- seeds[tempSeeds_bool, ]
+
       # Calculate Euclidean distances
-      dists <- sqrt((x[i]-seeds$x)^2 + (y[i] - seeds$y)^2)
+      dists <- sqrt((x[i]-tempSeeds$x)^2 + (y[i] - tempSeeds$y)^2)
 
       # Check if there is more than one possibility, then select random
       if(sum(dists == min(dists)) == 1){
-        return(seeds$bin[dists == min(dists)])
+        return(tempSeeds$bin[dists == min(dists)])
       } else {
-        return(sample(seeds$bin[dists == min(dists)], 1))
+        return(sample(tempSeeds$bin[dists == min(dists)], 1))
       }
     }
 
@@ -96,14 +103,21 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, numSeeds, shap
     binLabels <- rep(NA, length(x))
 
     for(i in 1:length(x)){
+      # Subset seeds because we can already exclude points that are too far away
+      tempSeeds_bool <- seeds$x >= x - xStepSize*5 &
+        seeds$x <= x + xStepSize*5 &
+        seeds$y >= y - xStepSize*5 &
+        seeds$y <= y + xStepSize*5
+      tempSeeds <- seeds[tempSeeds_bool, ]
+
       # Calculate Euclidean distances
-      dists <- sqrt((x[i]-seeds$x)^2 + (y[i] - seeds$y)^2)
+      dists <- sqrt((x[i]-tempSeeds$x)^2 + (y[i] - tempSeeds$y)^2)
 
       # Check if there is more than one possibility, then select random
       if(sum(dists == min(dists)) == 1){
-        binLabels[i] <- seeds$bin[dists == min(dists)]
+        binLabels[i] <- tempSeeds$bin[dists == min(dists)]
       } else {
-        binLabels[i] <- sample(seeds$bin[dists == min(dists)], 1)
+        binLabels[i] <- sample(tempSeeds$bin[dists == min(dists)], 1)
       }
     }
   }
