@@ -20,6 +20,6 @@ delete_everything_in_folder <- function(path2folder, verbose = TRUE){
 
   # Report
   if(verbose){
-    cat("\n ", length(allFiles), " filea(s) and ", length(allFolders), " folder(s) were deleted. \n")
+    cat("\n ", length(allFiles), " file(s) and ", length(allFolders), " folder(s) were deleted. \n")
   }
 }
