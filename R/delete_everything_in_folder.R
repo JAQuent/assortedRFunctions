@@ -15,8 +15,12 @@ delete_everything_in_folder <- function(path2folder, verbose = TRUE){
   allFolders <- allFolders[allFolders != path2folder]
 
   # Remove all
-  unlink(paste0(path2folder, "/", allFiles), recursive = TRUE)
-  unlink(allFolders, recursive = TRUE)
+  if(length(allFiles) > 0){
+    unlink(paste0(path2folder, "/", allFiles), recursive = TRUE)
+  }
+  if(length(allFolders) > 0){
+    unlink(allFolders, recursive = TRUE)
+  }
 
   # Report
   if(verbose){
