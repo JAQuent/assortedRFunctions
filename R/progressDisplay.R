@@ -1,5 +1,4 @@
 progressDisplay <- function(i, iterations, startTime){
-  startTime     <- startTime
   currentTime   <- Sys.time()
   elapsedTime   <- currentTime - startTime
   predictedTime <- elapsedTime * (1/(i/iterations))
