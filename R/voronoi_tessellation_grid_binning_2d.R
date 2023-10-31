@@ -24,7 +24,11 @@ voronoi_tessellation_grid_binning_2d <- function(x, y, limValues, numSeeds, shap
     }
 
     # Create the cluster following https://www.blasbenito.com/post/02_parallelizing_loops_with_r/
-    my.cluster <- parallel::makeCluster(detectCores() - 2, type = "PSOCK")
+    if(Sys.info()[1] == 'Linux'){
+      my.cluster <- parallel::makeCluster(detectCores() - 2, type = "FORK")
+    } else {
+      my.cluster <- parallel::makeCluster(detectCores() - 2, type = "PSOCK")
+    }
 
     #register it to be used by %dopar%
     doParallel::registerDoParallel(cl = my.cluster)
