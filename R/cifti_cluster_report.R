@@ -172,10 +172,10 @@ cifti_cluster_report <- function(zMap_file,
                         zValue_median = median(zValue),
                         zValue_max = max(zValue),
                         zValue_min = min(zValue),
-                        peak_x = x[zValue == max(zValue)],
-                        peak_y = y[zValue == max(zValue)],
-                        peak_z = z[zValue == max(zValue)],
-                        peak_region = parcel[zValue == max(zValue)],
+                        peak_x = x[abs(zValue) == max(abs(zValue))],
+                        peak_y = y[abs(zValue) == max(abs(zValue))],
+                        peak_z = z[abs(zValue) == max(abs(zValue))],
+                        peak_region = parcel[abs(zValue) == max(abs(zValue))],
                         num_regions = length_uniq(parcel))
 
     # Get the parcel number and labels for the clusters
@@ -215,7 +215,8 @@ cifti_cluster_report <- function(zMap_file,
 
     # Largest z-values
     cluster_num <- results1$cluster[results1$zValue_max == max(results1$zValue_max)]
-    cat(paste0("\n\nLargest z-value is ", round(max(results1$zValue_max), 3), " (Cluster number: ", cluster_num,")"))
+    cat(paste0("\n\nZ-value range is ", round(max(results1$zValue_max), 3),
+               " & ", round(min(results1$zValue_max), 3), " (Cluster number: ", cluster_num,")\n"))
   }
 
   # Remove the row names from the results because they would be out of orders
