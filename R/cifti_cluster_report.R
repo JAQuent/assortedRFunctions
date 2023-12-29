@@ -3,6 +3,8 @@
 # Check if coordinates are assigned correctly
 # Check if other parcellations are possible
 
+#https://edickie.github.io/ciftify/#/usage/ciftify_peaktable
+
 # Some background to check:
 # https://groups.google.com/a/humanconnectome.org/g/hcp-users/c/_Bh-nNWpnlI/m/P3E9XuPDAAAJ
 # https://groups.google.com/a/humanconnectome.org/g/hcp-users/c/_3rxkc0V7YE
