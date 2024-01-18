@@ -174,10 +174,12 @@ cifti_cluster_report <- function(zMap_file,
                         zValue_median = median(zValue),
                         zValue_max = max(zValue),
                         zValue_min = min(zValue),
+                        zValue_peak_abs = max(abs(zValue)),
                         peak_x = x[abs(zValue) == max(abs(zValue))],
                         peak_y = y[abs(zValue) == max(abs(zValue))],
                         peak_z = z[abs(zValue) == max(abs(zValue))],
                         peak_region = parcel[abs(zValue) == max(abs(zValue))],
+                        peak_region_name = label[abs(zValue) == max(abs(zValue))],
                         num_regions = length_uniq(parcel))
 
     # Get the parcel number and labels for the clusters
