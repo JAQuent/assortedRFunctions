@@ -14,4 +14,7 @@ create_fileList <- function(path, recursive = FALSE){
   # Printing the files names
   cat('List of all files and folders:\n')
   cat(paste(fileList, sep = '\n', collapse = '\n'))
+
+  # Return
+  return(paste(fileList, sep = '\n', collapse = '\n'))
 }
