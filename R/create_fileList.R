@@ -9,7 +9,7 @@ create_fileList <- function(path, recursive = FALSE){
   cat(paste0('Location: "', path, '"\n\n'))
 
   # Getting the file names
-  fileList <- list.files(path, recursive)
+  fileList <- list.files(path, recursive = recursive)
 
   # Printing the files names
   cat('List of all files and folders:\n')
