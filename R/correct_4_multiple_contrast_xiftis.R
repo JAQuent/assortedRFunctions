@@ -1,6 +1,9 @@
-recalculate_FDR_4_contrasts <- function(xii_uncp_list){
+correct_4_multiple_contrast_xiftis <- function(xii_uncp_list, correction_method = "fdr"){
   # This function expects xifti objects with uncorrected p-values.
   # Example: xii_uncp_list <- list(p1 = GLM1_pMap1_xii, p2 = GLM1_pMap2_xii)
+  # p.adjust.methods
+  # c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+  #   "fdr", "none")
 
   ########### Get the points from the xifits
   log_uncp_values <- c()
@@ -21,7 +24,7 @@ recalculate_FDR_4_contrasts <- function(xii_uncp_list){
   uncp_values     <- 10^-(log_uncp_values)
 
   # Calculate FDR correction over all values
-  fdrp_values     <- p.adjust(uncp_values, method = "fdr")
+  fdrp_values     <- p.adjust(uncp_values, method = correction_method)
 
   # Convert raw p-value to -log10(p)
   log_fdrp_values <- -log10(fdrp_values)
