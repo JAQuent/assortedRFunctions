@@ -23,23 +23,23 @@ correct_4_multiple_contrast_xiftis <- function(xii_uncp_list, correction_method 
   # Convert from -log10(p) back to raw p-value
   uncp_values     <- 10^-(log_uncp_values)
 
-  # Calculate FDR correction over all values
-  fdrp_values     <- p.adjust(uncp_values, method = correction_method)
+  # Calculate correction over all p-values
+  corp_values     <- p.adjust(uncp_values, method = correction_method)
 
-  # Convert raw p-value to -log10(p)
-  log_fdrp_values <- -log10(fdrp_values)
+  # Convert raw p-values to -log10(p)
+  log_corp_values <- -log10(corp_values)
 
   ########### Create list of update xiftis
   # Create new list
-  xii_fdrp_list <- xii_uncp_list
+  xii_corp_list <- xii_uncp_list
 
   # Loop over all xiftis
-  for(i in 1:length(xii_fdrp_list)){
+  for(i in 1:length(xii_corp_list)){
     # Get the current xifti
-    current_xii <- xii_fdrp_list[[i]]
+    current_xii <- xii_corp_list[[i]]
 
     # Get values meant for current xifti
-    current_values <- log_fdrp_values[xifti_index == i]
+    current_values <- log_corp_values[xifti_index == i]
 
     # Get indices for each brain part for the current xifti
     brainpart_index <- c()
@@ -57,12 +57,12 @@ correct_4_multiple_contrast_xiftis <- function(xii_uncp_list, correction_method 
       n <- length(current_values_for_brainpart)
 
       # Get the grayordinate values
-      xii_fdrp_list[[i]]$data[[j]] <- matrix(current_values_for_brainpart, nrow = n, ncol = 1)
+      xii_corp_list[[i]]$data[[j]] <- matrix(current_values_for_brainpart, nrow = n, ncol = 1)
     }
   }
 
   ########### Return
-  return(xii_fdrp_list)
+  return(xii_corp_list)
 }
 
 
