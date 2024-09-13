@@ -1,4 +1,4 @@
-json_strings_from_df <- function(df, fileName){
+json_strings_from_df <- function(df, fileName, extraString = ""){
   # Functions takes data.frame and creates json_strings with it
 
   # Get all variable names
@@ -10,7 +10,7 @@ json_strings_from_df <- function(df, fileName){
   # Loop to create json strings and assign to .GlobalEnv
   for(i in 1:length(var_nam)){
     assign(paste0(var_nam[i], '_string'),
-           create_json_variable_str(var_nam[i], df[, var_nam[i]]),
+           create_json_variable_str(var_nam[i], df[, var_nam[i]], extraString),
            envir = .GlobalEnv)
 
     # Write variable
@@ -20,7 +20,7 @@ json_strings_from_df <- function(df, fileName){
     cat('\n\n')
 
     # Write JSON.paste
-    cat(paste0(var_nam[i], " = JSON.parse(",var_nam[i] , ");"))
+    cat(paste0(var_nam[i], extraString, " = JSON.parse(",var_nam[i], extraString, ");"))
 
     # Line break
     cat('\n\n')
