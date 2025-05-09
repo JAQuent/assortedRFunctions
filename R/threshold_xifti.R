@@ -6,7 +6,7 @@ threshold_xifti <- function(target_xii, upper_cutOff, threshold_xii_list){
   thresholded_xii_list <- list()
 
   # Loop through threshold_maps_list and set everything that's below the cut-off to NA
-  for(i in 1:length(threshold_maps)){
+  for(i in 1:length(threshold_xii_list)){
     # Convert target_xii to matrix
     target_mat <- as.matrix(target_xii)
     threshold_mat   <- as.matrix(threshold_xii_list[[i]])
