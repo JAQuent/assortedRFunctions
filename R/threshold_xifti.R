@@ -24,11 +24,6 @@ threshold_xifti <- function(target_xii, upper_cutOff, threshold_xii_list){
   # Calculate the sum to add maps together
   summed_xii <- apply_xifti(merged_xii, margin = 1, sum)
 
-  # Function to set zero to NA
-  zero2NA <- function(x){
-    return(ifelse(x == 0, NA, x))
-  }
-
   # Set 0 values to NA
   return(apply_xifti(summed_xii, margin = 1, zero2NA))
 }
