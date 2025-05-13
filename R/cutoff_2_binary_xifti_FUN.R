@@ -1,7 +1,7 @@
-cutoff_2_binary_xifti_FUN <- function(x, cutOff, reverse = FALSE){
+cut_off_2_binary_xifti_FUN <- function(x, cut_off, reverse = FALSE){
   if(reverse){
-    ifelse(x < cutOff, 0, 1)
+    ifelse(x < cut_off, 0, 1)
   } else {
-    ifelse(x < cutOff, 1, 0)
+    ifelse(x < cut_off, 1, 0)
   }
 }
