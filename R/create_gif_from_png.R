@@ -1,5 +1,4 @@
-create_gif_from_png <- function(input_dir = ".",
-                                pattern = "*.png",
+create_gif_from_png <- function(png_files,
                                 output_file = "animation.gif",
                                 delay = 10,
                                 resize = NULL) {
@@ -8,11 +7,6 @@ create_gif_from_png <- function(input_dir = ".",
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop("The 'magick' package is required. Please install it with install.packages('magick')")
   }
-
-  # Get list of PNG files
-  png_files <- list.files(path = input_dir,
-                          pattern = pattern,
-                          full.names = TRUE)
 
   if (length(png_files) == 0) {
     stop("No PNG files found in the specified directory with the given pattern.")
@@ -46,4 +40,4 @@ create_gif_from_png <- function(input_dir = ".",
   message(paste("GIF successfully created:", output_file))
 }
 
-# Usage: create_gif_from_png(input_dir = "path/to/pngs", output_file = "my_animation.gif", delay = 15)
+# Usage: create_gif_from_png(png_files, output_file = "my_animation.gif", delay = 15)
