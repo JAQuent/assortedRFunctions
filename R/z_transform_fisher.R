@@ -1,4 +1,8 @@
-z_transform_fisher <- function(r){
-  # Z-transformation for correlation coeffecient
-  log((1 + r) / (1 - r))/2
+z_transform_fisher <- function(r, reverse = FALSE){
+  # Z-transformation for correlation coefficient
+  if(reverse){
+    tanh(r)
+  } else {
+    log((1 + r) / (1 - r))/2
+  }
 }
