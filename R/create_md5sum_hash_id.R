@@ -1,5 +1,5 @@
 # Function to create hash id
-create_hash_id <- function(id2hash, secret_key){
+create_md5sum_hash_id <- function(id2hash, secret_key){
   # Get unique IDs
   unique_id <- unique(id2hash)
 
