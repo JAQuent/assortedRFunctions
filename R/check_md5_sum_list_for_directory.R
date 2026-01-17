@@ -1,9 +1,4 @@
-check_md5_sum_list_for_directory <- function(directory, filename) {
-  # Load required package
-  if (!require(digest, quietly = TRUE)) {
-    stop("Install digest package: install.packages('digest')")
-  }
-
+check_md5_sum_list_for_directory <- function(directory, filename = "md5_checksums.csv") {
   # Check inputs
   if (!file.exists(filename)) stop("File not found: ", filename)
   if (!dir.exists(directory)) stop("Directory not found: ", directory)
@@ -30,14 +25,25 @@ check_md5_sum_list_for_directory <- function(directory, filename) {
   changed <- character(0)
 
   if (length(common) > 0) {
-    for (file in common) {
-      saved_checksum <- saved$checksum[saved$relative_path == file]
-      current_checksum <- digest::digest(file = file.path(directory, file),
-                                         algo = "md5")
-      if (saved_checksum != current_checksum) {
-        changed <- c(changed, file)
-      }
+    # Create absolute paths for common files
+    common_files_absolute <- file.path(directory, common)
+
+    # Use the same method as creation for verification
+    if (.Platform$OS.type == "unix") {
+      # Unix: Use parallel md5sum
+      cat("Verifying with parallel md5sum...\n")
+      current_checksums <- checksums_of_files_md5sum_parallel(common_files_absolute)
+    } else {
+      # Windows: Use digest package
+      cat("Verifying with digest package...\n")
+      current_checksums <- checksums_of_files_digest(common_files_absolute)
     }
+
+    # Match saved checksums by relative path
+    saved_checksums <- saved$checksum[match(common, saved$relative_path)]
+
+    # Find changed files
+    changed <- common[saved_checksums != current_checksums]
   }
 
   # Print results
@@ -50,6 +56,12 @@ check_md5_sum_list_for_directory <- function(directory, filename) {
 
   cat("Changed files:", length(changed), "\n")
   if (length(changed) > 0) cat(paste(" ", changed, collapse = "\n"), "\n")
-}
 
-# Usage check_md5_sum_list_for_directory(directory, filename)
+  # Return summary
+  return(invisible(list(
+    all_match = (length(missing) == 0 & length(extra) == 0 & length(changed) == 0),
+    missing = missing,
+    extra = extra,
+    changed = changed
+  )))
+}
