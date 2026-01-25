@@ -3,7 +3,7 @@ create_HCP_91k_xii_template <- function(){
   # Create load ones_1k.dscalar.nii to get necessary stuff for subcortical data
   sub_data <- read_cifti(ciftiTools.files()$cifti["dscalar_ones"])
 
-  # Create a new xifti with 1, 2 and 3
+  # Create a new xifti with 0, 1 and 2
   template_xii <- as.xifti(cortexL = rep(0, 29696),
                            cortexR = rep(1, 29716),
                            subcortVol = as.matrix(rep(2, 31870)),
