@@ -1,6 +1,6 @@
 Package: assortedRFunctions
 Title:Just a collection of random functions that I wrote.
-Version: 1.5.2
+Version: 1.6.0
 Authors@R: person("Joern Alexander", "Quent", email = "alexander.quent@rub.de", role = c("aut", "cre"))
 Description: Just a collection of random functions that I wrote.
 Depends: R (>= 3.5.1)
